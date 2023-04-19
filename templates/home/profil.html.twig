@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AUT'O - Profil de {{ app.user.prenom }}{% endblock %}
+
+{% block body %}
+   <script src="https://cdn.tailwindcss.com"></script>
+   <style>
+      html, body { min-height: 100%; }
+
+      .rounded-xl { border-radius: 2rem; }
+   </style>
+   <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+   <div style="background-image: url(https://wallpaperaccess.com/full/124068.jpg)" class="bg-gradient-to-r from-purple-500 to-indigo-500  min-h-screen">
+      <div class="fixed bg-white text-blue-800 px-10 py-1 z-10 w-full">
+         <div class="flex items-center justify-between py-2 text-5x1">
+            <div class="font-bold text-gray-900 text-xl">AUT'<span class="text-indigo-600">O</span></div>
+         </div>
+      </div>
+      <div class="flex flex-row pt-24 px-10 pb-4">
+         <div class="w-2/12 mr-6">
+            <div class="bg-white rounded-xl shadow-lg mb-6 px-6 py-4">
+               <p class="inline-block text-gray-600 my-4 w-full">
+                  <span class="material-icons-outlined float-left pr-2">face</span>
+                  Mon profil
+               </p>
+               <a href="{{ path('app_home') }}" class="inline-block text-gray-600 hover:text-black my-4 w-full">
+                  <span class="material-icons-outlined float-left pr-2">dashboard</span>
+                  Acceuil
+                  <span class="material-icons-outlined float-right">keyboard_arrow_right</span>
+               </a>
+               <a href="{{ path('app_logout') }}" class="inline-block text-gray-600 hover:text-black my-4 w-full">
+                  <span class="material-icons-outlined float-left pr-2">power_settings_new</span>
+                  Déconexion
+                  <span class="material-icons-outlined float-right">keyboard_arrow_right</span>
+               </a>
+            </div>
+         </div>
+         <div class="w-10/12">
+            <div class="flex flex-row">
+               <div class="bg-no-repeat bg-indigo-500 border border-indigo-600 rounded-xl w-7/12 mr-2 p-6" style="background-image: url(https://previews.dropbox.com/p/thumb/AAvyFru8elv-S19NMGkQcztLLpDd6Y6VVVMqKhwISfNEpqV59iR5sJaPD4VTrz8ExV7WU9ryYPIUW8Gk2JmEm03OLBE2zAeQ3i7sjFx80O-7skVlsmlm0qRT0n7z9t07jU_E9KafA9l4rz68MsaZPazbDKBdcvEEEQPPc3TmZDsIhes1U-Z0YsH0uc2RSqEb0b83A1GNRo86e-8TbEoNqyX0gxBG-14Tawn0sZWLo5Iv96X-x10kVauME-Mc9HGS5G4h_26P2oHhiZ3SEgj6jW0KlEnsh2H_yTego0grbhdcN1Yjd_rLpyHUt5XhXHJwoqyJ_ylwvZD9-dRLgi_fM_7j/p.png?fv_content=true&size_mode=5); background-position: 90% center;">
+                  {% for message in app.flashes('message') %}
+                     <div class="bg-green-100 p-5 w-full sm:w-1/2 rounded z-index-1000">
+                        <div class="flex justify-between">
+                           <div class="flex space-x-3">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="flex-none fill-current text-green-500 h-4 w-4">
+                                 <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.25 16.518l-4.5-4.319 1.396-1.435 3.078 2.937 6.105-6.218 1.421 1.409-7.5 7.626z" /></svg>
+                              <div class="flex-1 leading-tight text-sm text-green-700 font-medium">{{ message }}</div>
+                           </div>
+                        </div>
+                     </div>
+                  {% endfor %}
+                  <p class="text-5xl text-white">Bonjour, <br><strong>{{ app.user.prenom }} {{ app.user.nom }}</strong></p>
+                  <!-- Menu gestion -->
+                  <style>
+                     .dropdown:hover .dropdown-menu {
+                        display: block;
+                     }
+                  </style>
+
+
+
+                  <div class="dropdown inline-block relative ">
+                     <button>
+                        <span class="bg-indigo-600 text-xl text-white underline hover:no-underline inline-block rounded-lg mt-12 px-8 py-2"><strong>Modifier</strong></span>
+                     </button>
+                     <ul class="dropdown-menu hidden text-white pt-1">
+                        <li><a class="rounded-lg bg-indigo-600 border-solid border-2 hover:bg-indigo-400 py-2 px-4 block whitespace-no-wrap transition ease-in duration-150" href="{{ path('app_password_edit') }}">Mon mot de passe</a></li>
+
+                     </ul>
+                     <ul class="dropdown-menu hidden text-white pt-1">
+                        <li><a class="rounded-lg bg-indigo-600 border-solid border-2 hover:bg-indigo-400 py-2 px-4 block whitespace-no-wrap transition ease-in duration-150" href="{{ path('app_profil_edit') }}">Mes données</a></li>
+
+                     </ul>
+                  </div>
+
+               </div>
+
+               <div class="bg-no-repeat bg-indigo-500 border border-indigo-600 rounded-xl w-5/12 ml-2 p-6" style="background-image: url(https://previews.dropbox.com/p/thumb/AAuwpqWfUgs9aC5lRoM_f-yi7OPV4txbpW1makBEj5l21sDbEGYsrC9sb6bwUFXTSsekeka5xb7_IHCdyM4p9XCUaoUjpaTSlKK99S_k4L5PIspjqKkiWoaUYiAeQIdnaUvZJlgAGVUEJoy-1PA9i6Jj0GHQTrF_h9MVEnCyPQ-kg4_p7kZ8Yk0TMTL7XDx4jGJFkz75geOdOklKT3GqY9U9JtxxvRRyo1Un8hOObbWQBS1eYE-MowAI5rNqHCE_e-44yXKY6AKJocLPXz_U4xp87K4mVGehFKC6dgk_i5Ur7gspuD7gRBDvd0sanJ9Ybr_6s2hZhrpad-2WFwWqSNkh/p.png?fv_content=true&size_mode=5); background-position: 100% 40%;">
+                  <p class="text-5xl text-white">Ajout d'une<br><strong>leçon</strong></p>
+                  <a href="{{ path('app_lecon_new') }}" class="bg-indigo-600 text-xl text-white underline hover:no-underline inline-block rounded-lg mt-12 px-8 py-2"><strong>Ajouter</strong></a>
+               </div>
+            </div>
+            <div class="flex flex-row h-64 mt-6">
+               <div class="bg-indigo-500  border border-indigo-600 rounded-xl text-white shadow-lg px-6 py-4 w-4/12 flex flex-col space-y-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                     <path stroke-linecap="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25" />
+                  </svg>
+                  {{ app.user.email }}
+                  <svg xmlns="http://www.w3.or  g/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.87c1.355 0 2.697.055 4.024.165C17.155 8.51 18 9.473 18 10.608v2.513m-3-4.87v-1.5m-6 1.5v-1.5m12 9.75l-1.5.75a3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0L3 16.5m15-3.38a48.474 48.474 0 00-6-.37c-2.032 0-4.034.125-6 .37m12 0c.39.049.777.102 1.163.16 1.07.16 1.837 1.094 1.837 2.175v5.17c0 .62-.504 1.124-1.125 1.124H4.125A1.125 1.125 0 013 20.625v-5.17c0-1.08.768-2.014 1.837-2.174A47.78 47.78 0 016 13.12M12.265 3.11a.375.375 0 11-.53 0L12 2.845l.265.265zm-3 0a.375.375 0 11-.53 0L9 2.845l.265.265zm6 0a.375.375 0 11-.53 0L15 2.845l.265.265z" />
+                  </svg>
+                  {{ app.user.datedenaissance }}
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                  </svg>
+                  {{ app.user.telephone }}
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5l-1.5-.5M6.75 7.364V3h-3v18m3-13.636l10.5-3.819" />
+                  </svg>
+                  {{ app.user.ville }}
+               </div>
+               <div class="bg-indigo-500 rounded-xl shadow-lg mx-6 px-6 py-4 w-4/12">
+                  <p class="text-5xl text-white">Voir mon <br><strong>planning</strong></p>
+                  <!--href="{# path('app_lecon_calendar', {'id': user.id}) #}"-->
+                  <a class="bg-indigo-600 text-xl text-white underline hover:no-underline inline-block rounded-lg mt-12 px-8 py-2" ><strong>Voir</strong></a>
+               </div>
+               <div class="bg-indigo-500 rounded-xl shadow-lg px-6 py-4 w-4/12">
+                  <p class="text-5xl text-white">Voir mes <br><strong>statistiques</strong></p>
+                  <a href="{{ path('app_lecon_index')}}" class="bg-indigo-600 text-xl text-white underline hover:no-underline inline-block rounded-lg mt-12 px-8 py-2"><strong>Voir</strong></a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+{% endblock %}

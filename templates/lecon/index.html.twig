@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lecon index{% endblock %}
+
+{% block body %}
+    <h1>Lecon index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                {% if  is_granted('ROLE_ADMIN') %}
+                <th>Id</th>
+                {% endif %}
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Reglee</th>
+                {% if  is_granted('ROLE_ADMIN') %}
+                <th>actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for lecon in lecons %}
+            <tr>
+                {% if  is_granted('ROLE_ADMIN') %}
+                <td>{{ lecon.id }}</td>
+                {% endif %}
+                <td>{{ lecon.date ? lecon.date|date('Y-m-d') : '' }}</td>
+                <td>{{ lecon.heure }}</td>
+                <td>{{ lecon.reglee }}</td>
+
+                <td>
+                    {% if  is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('app_lecon_show', {'id': lecon.id}) }}">show</a>
+                    <a href="{{ path('app_lecon_edit', {'id': lecon.id}) }}">edit</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_lecon_new') }}">Create new</a>
+
+{% endblock %}

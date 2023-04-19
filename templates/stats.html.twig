@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Statistique{% endblock %}
+
+{% block body %}
+    <h1>Statistique</h1>
+    {%if is_granted('ROLE_USER')  %}
+    <div style="text-align: center;">
+        <p> Lecon payées ou non</p>
+        <br>
+    </div>
+    <div>
+        <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+    <br>
+    <br>
+    <div style="text-align: center;">
+        <p> Lecon faites ou non</p>
+        <br>
+    </div>
+    <div>
+        <canvas id="myChart2" width="400" height="400"></canvas>
+    </div>
+    {% endif %}
+    {%if is_granted('ROLE_ADMIN')  %}
+        <div style="text-align: center;">
+            <h1> Page reservé a l'éleve</h1>
+        </div>
+    {% endif %}
+    {%if is_granted('ROLE_MONITEUR')  %}
+        <h1> Page reservé a l'éleve</h1>
+    {% endif %}
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.8.0/js/anychart-data-adapter.js"></script>
+
+    <script>
+
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['leçon payé', 'leçon non payés'],
+                datasets: [{
+                    data:[{{ leconPaye|raw }},{{ leconNonPaye|raw}}] ,
+                    borderWidth: 1,
+                    backdropColor: ['Red', 'green'],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+        const ctx2 = document.getElementById('myChart2');
+
+        new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: ['leçon faites', 'leçon non faites'],
+                datasets: [{
+                    data:[{{ leconFaites|raw }},{{ leconNonFaites|raw}}] ,
+                    borderWidth: 1,
+                    backdropColor: ['Red', 'green'],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+
+{% endblock %}
